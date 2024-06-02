@@ -6,7 +6,7 @@ from flask_migrate import Migrate
 from datetime import datetime
 import pytz
 
-app = Flask(__name__)
+app = Flask(_name_)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.sqlite"
 app.config["SECRET_KEY"] = "abc"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -89,5 +89,31 @@ def admin_dashboard():
 def dashboard():
     return render_template("dashboard.html", username=current_user.username)
 
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=443, ssl_context=('mycert.crt', 'mycert.key'))
+@app.route('/register', methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+        confirm_password = request.form.get("confirm_password")
+
+        if password != confirm_password:
+            print("Passwords do not match")
+            return render_template("sign_up.html", error="Passwords do not match")
+
+        user = Users.query.filter_by(username=username).first()
+        if user:
+            print("Username already exists")
+            return render_template("sign_up.html", error="Username already exists")
+        
+        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+        new_user = Users(username=username, password=hashed_password)
+        db.session.add(new_user)
+        db.session.commit()
+        print("User registered successfully")
+        return redirect(url_for('login'))
+    
+    return render_template("sign_up.html")
+
+if _name_ == "_main_":
+    app.run(host='0.0.0.0
+', port=443, ssl_context=('mycert.crt', 'mycert.key'))
