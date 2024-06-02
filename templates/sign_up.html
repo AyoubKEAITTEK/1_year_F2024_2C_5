@@ -1,1 +1,97 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css
+">
+    <style>
+        body {
+            background-image: linear-gradient(to bottom right, #ffcc00, #ff00ff);
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        h1 {
+            color: #ff0000;
+            animation: fadeIn 1s ease-in-out;
+            margin-bottom: 20px;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #ffffff;
+            transition: color 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: #ff00ff;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+        input[type="text"],
+        input[type="password"],
+        button {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #ffcc00;
+            color: #ffffff;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #ff00ff;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/login"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+            <li><a href="/register"><i class="fas fa-user-plus"></i> Create account</a></li>
+        </ul>
+    </nav>
+    <h1>Create an account</h1>
+    <form action="/register" method="post">
+        <label for="username">Username:</label>
+        <input type="text" name="username" required />
+        <label for="password">Password:</label>
+        <input type="password" name="password" required />
+        <label for="confirm_password">Confirm Password:</label>
+        <input type="password" name="confirm_password" required />
+        <button type="submit">Submit</button>
+        {% if error %}
+            <p>{{ error }}</p>
+        {% endif %}
+    </form>
+</body>
+</html> sign_up.html
